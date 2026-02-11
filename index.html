@@ -4,21 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionnaire Ramadan Cup 2026</title>
+    <title>S2G Africa — Ramadan Cup 2026</title>
     <style>
+        /* ============================================
+           S2G AFRICA BRAND COLORS
+           Orange: #E8781A  |  Navy: #1C2856
+           ============================================ */
         :root {
-            --primary: #1a237e;
-            --primary-light: #283593;
-            --accent: #ffd700;
-            --accent-dark: #c7a600;
-            --text: #333;
-            --bg: #0d1442;
-            --card-bg: rgba(255, 255, 255, 0.06);
-            --card-bg-solid: #1c2261;
+            --s2g-orange: #E8781A;
+            --s2g-orange-dark: #C96514;
+            --s2g-orange-light: #F59A42;
+            --s2g-navy: #1C2856;
+            --s2g-navy-deep: #111B3A;
+            --s2g-navy-light: #2A3C72;
+            --s2g-white: #FFFFFF;
+            --text-light: #e0e0e0;
+            --text-muted: rgba(255, 255, 255, 0.55);
+            --card-bg: rgba(28, 40, 86, 0.6);
+            --card-border: rgba(232, 120, 26, 0.2);
+            --surface: rgba(255, 255, 255, 0.04);
             --success: #2e7d32;
             --danger: #c62828;
-            --surface: rgba(255, 255, 255, 0.08);
-            --border: rgba(255, 215, 0, 0.15);
         }
 
         * {
@@ -29,8 +35,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0d1442 0%, #1a237e 50%, #0d1442 100%);
-            color: #e0e0e0;
+            background: linear-gradient(160deg, var(--s2g-navy-deep) 0%, var(--s2g-navy) 40%, var(--s2g-navy-deep) 100%);
+            color: var(--text-light);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -38,46 +44,51 @@
 
         /* === HEADER === */
         header {
-            background: linear-gradient(135deg, rgba(26, 35, 126, 0.9), rgba(13, 20, 66, 0.95));
-            border-bottom: 2px solid var(--accent);
-            padding: 1.5rem 2rem;
-            text-align: center;
+            background: linear-gradient(135deg, var(--s2g-navy), var(--s2g-navy-deep));
+            border-bottom: 3px solid var(--s2g-orange);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
             position: relative;
-            overflow: hidden;
         }
 
-        header::before {
-            content: '☪';
-            position: absolute;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 3rem;
-            opacity: 0.15;
+        .header-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
 
-        header::after {
-            content: '⚽';
-            position: absolute;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            opacity: 0.15;
+        .header-text {
+            text-align: center;
         }
 
         header h1 {
-            color: var(--accent);
-            font-size: 2.2rem;
+            color: var(--s2g-orange);
+            font-size: 2rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(232, 120, 26, 0.25);
         }
 
         header p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 5px;
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .header-badge {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 2.5rem;
         }
 
         /* === MAIN === */
@@ -89,66 +100,70 @@
             width: 100%;
         }
 
-        /* === NAVIGATION TABS === */
+        /* === TABS === */
         .nav-tabs {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             margin-bottom: 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.4rem;
             border-radius: 12px;
         }
 
         .nav-tabs button {
             flex: 1;
-            min-width: 140px;
-            padding: 10px 16px;
-            border: 1px solid var(--border);
+            min-width: 130px;
+            padding: 10px 14px;
+            border: 1px solid transparent;
             border-radius: 8px;
             background: transparent;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.25s;
         }
 
         .nav-tabs button:hover {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--accent);
+            background: rgba(232, 120, 26, 0.1);
+            color: var(--s2g-orange-light);
         }
 
         .nav-tabs button.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--accent);
-            border-color: var(--accent);
-            box-shadow: 0 2px 12px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, var(--s2g-orange), var(--s2g-orange-dark));
+            color: white;
+            border-color: var(--s2g-orange);
+            box-shadow: 0 3px 14px rgba(232, 120, 26, 0.3);
         }
 
-        .nav-tabs button.btn-export {
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.5);
+        .nav-tabs .btn-util {
             flex: 0;
             min-width: auto;
+            font-size: 0.82rem;
+            padding: 8px 12px;
         }
 
-        .nav-tabs button.btn-danger {
-            background: rgba(198, 40, 40, 0.2);
+        .nav-tabs .btn-util.export-btn {
+            color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-tabs .btn-util.reset-btn {
             color: #ef9a9a;
-            border-color: rgba(198, 40, 40, 0.3);
-            flex: 0;
-            min-width: auto;
+            background: rgba(198, 40, 40, 0.15);
+            border-color: rgba(198, 40, 40, 0.2);
         }
 
         /* === SECTIONS === */
         section {
-            background: var(--card-bg-solid);
-            border: 1px solid var(--border);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 28px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
         }
 
         .hidden {
@@ -156,23 +171,23 @@
         }
 
         h2 {
-            color: var(--accent);
+            color: var(--s2g-orange);
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             padding-bottom: 0.75rem;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 2px solid rgba(232, 120, 26, 0.2);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         h3 {
-            color: var(--accent);
+            color: var(--s2g-orange-light);
             margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
-        /* === FORM ELEMENTS === */
+        /* === FORMS === */
         .input-group {
             margin-bottom: 1.2rem;
         }
@@ -181,8 +196,8 @@
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 600;
-            color: var(--accent);
-            font-size: 0.9rem;
+            color: var(--s2g-orange-light);
+            font-size: 0.88rem;
         }
 
         input[type="text"],
@@ -191,20 +206,20 @@
         input[type="number"] {
             width: 100%;
             padding: 10px 12px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(232, 120, 26, 0.2);
             border-radius: 8px;
             font-family: inherit;
             font-size: 0.95rem;
-            background: rgba(255, 255, 255, 0.05);
-            color: #e0e0e0;
-            transition: border-color 0.3s;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.15);
+            border-color: var(--s2g-orange);
+            box-shadow: 0 0 10px rgba(232, 120, 26, 0.15);
         }
 
         textarea {
@@ -216,35 +231,34 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            text-transform: none;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--s2g-orange), var(--s2g-orange-dark));
+            color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(232, 120, 26, 0.35);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: #bbb;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .btn-danger {
@@ -257,52 +271,91 @@
         }
 
         .btn-buzzer {
-            background: linear-gradient(135deg, #d81b60, #ad1457);
+            background: linear-gradient(135deg, var(--s2g-orange), #d35400);
             color: white;
             font-size: 1.1rem;
             padding: 14px 28px;
             border-radius: 50px;
-            box-shadow: 0 6px 0 #880e4f, 0 8px 20px rgba(216, 27, 96, 0.3);
+            box-shadow: 0 6px 0 var(--s2g-orange-dark), 0 8px 20px rgba(232, 120, 26, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
-            animation: buzzerPulse 2s infinite;
+            animation: buzzerGlow 2s infinite;
         }
 
         .btn-buzzer:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 0 #880e4f, 0 12px 24px rgba(216, 27, 96, 0.4);
+            box-shadow: 0 8px 0 var(--s2g-orange-dark), 0 12px 28px rgba(232, 120, 26, 0.45);
         }
 
         .btn-buzzer:active {
             transform: translateY(4px);
-            box-shadow: 0 2px 0 #880e4f;
+            box-shadow: 0 2px 0 var(--s2g-orange-dark);
         }
 
         .btn-buzzer:disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             animation: none;
             cursor: not-allowed;
+            transform: none !important;
         }
 
-        @keyframes buzzerPulse {
+        @keyframes buzzerGlow {
 
             0%,
             100% {
-                box-shadow: 0 6px 0 #880e4f, 0 8px 20px rgba(216, 27, 96, 0.3);
+                box-shadow: 0 6px 0 var(--s2g-orange-dark), 0 8px 20px rgba(232, 120, 26, 0.3);
             }
 
             50% {
-                box-shadow: 0 6px 0 #880e4f, 0 8px 30px rgba(216, 27, 96, 0.5);
+                box-shadow: 0 6px 0 var(--s2g-orange-dark), 0 8px 32px rgba(232, 120, 26, 0.55);
             }
         }
 
-        .btn-orange {
-            background: linear-gradient(135deg, #f57f17, #e65100);
-            color: white;
+        .btn-schedule {
+            background: linear-gradient(135deg, var(--s2g-navy-light), var(--s2g-navy));
+            color: var(--s2g-orange);
+            border: 1px solid var(--s2g-orange);
         }
 
-        .btn-orange:hover {
-            box-shadow: 0 4px 16px rgba(245, 127, 23, 0.4);
+        .btn-schedule:hover {
+            box-shadow: 0 4px 16px rgba(232, 120, 26, 0.25);
+        }
+
+        /* === RESET CONFIG PANEL === */
+        .reset-config-panel {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: rgba(198, 40, 40, 0.06);
+            border: 1px solid rgba(198, 40, 40, 0.2);
+            border-radius: 12px;
+        }
+
+        .reset-config-panel h3 {
+            color: #ef9a9a;
+            margin-bottom: 0.75rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ccc;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--s2g-orange);
+            cursor: pointer;
         }
 
         /* === SETUP GRID === */
@@ -312,21 +365,20 @@
             gap: 1.5rem;
         }
 
-        /* === PLAYER SUMMARY TABLE === */
+        /* === SUMMARY TABLE === */
         .summary-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .summary-table th {
-            background: var(--primary);
-            color: var(--accent);
+            background: var(--s2g-navy);
+            color: var(--s2g-orange);
             padding: 10px 8px;
             text-align: left;
             font-weight: 600;
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 2px solid var(--s2g-orange);
         }
 
         .summary-table td {
@@ -336,13 +388,13 @@
         }
 
         .summary-table tr:hover td {
-            background: rgba(255, 215, 0, 0.05);
+            background: rgba(232, 120, 26, 0.05);
         }
 
         /* === DRAW SECTION === */
         .draw-info {
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            background: rgba(232, 120, 26, 0.05);
+            border: 1px solid rgba(232, 120, 26, 0.15);
             padding: 1.5rem;
             border-radius: 12px;
             margin-bottom: 1.5rem;
@@ -354,7 +406,7 @@
         }
 
         .draw-info p {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-muted);
             margin-bottom: 1rem;
         }
 
@@ -369,7 +421,7 @@
             margin-top: 1rem;
             font-weight: bold;
             font-size: 1.1rem;
-            color: var(--accent);
+            color: var(--s2g-orange);
             min-height: 1.5em;
         }
 
@@ -383,7 +435,7 @@
 
         .draw-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), #ff9800);
+            background: linear-gradient(90deg, var(--s2g-orange), var(--s2g-orange-light));
             border-radius: 999px;
             transition: width 0.4s ease;
         }
@@ -391,13 +443,13 @@
         /* === TEAM CARDS === */
         .teams-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
         }
 
         .team-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 215, 0, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(232, 120, 26, 0.12);
             border-radius: 12px;
             padding: 1rem;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -409,14 +461,14 @@
         }
 
         .team-card.fixed-team {
-            border-color: rgba(245, 127, 23, 0.4);
-            background: rgba(245, 127, 23, 0.05);
+            border-color: rgba(232, 120, 26, 0.4);
+            background: rgba(232, 120, 26, 0.05);
         }
 
         .team-card h4 {
-            color: var(--accent);
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem;
+            color: var(--s2g-orange);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             justify-content: space-between;
@@ -426,7 +478,7 @@
 
         .team-card h4 .count {
             font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.4);
+            color: var(--text-muted);
             font-weight: normal;
         }
 
@@ -436,8 +488,8 @@
         }
 
         .player-list li {
-            padding: 4px 0;
-            font-size: 0.9rem;
+            padding: 3px 0;
+            font-size: 0.88rem;
             color: #ccc;
             display: flex;
             align-items: center;
@@ -463,16 +515,16 @@
         }
 
         .cat-badge.cat3 {
-            background: rgba(255, 152, 0, 0.2);
-            color: #ffb74d;
+            background: rgba(232, 120, 26, 0.2);
+            color: var(--s2g-orange-light);
         }
 
         .cat-badge.fixe {
-            background: rgba(245, 127, 23, 0.2);
-            color: #ff9800;
+            background: rgba(255, 255, 255, 0.1);
+            color: #aaa;
         }
 
-        /* === MATCH SECTION === */
+        /* === MATCHES === */
         .match-day {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -482,11 +534,11 @@
         }
 
         .match-day h3 {
-            color: var(--accent);
+            color: var(--s2g-orange);
             margin-bottom: 0.75rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .match-row {
@@ -529,11 +581,11 @@
         }
 
         .score-inputs span {
-            color: rgba(255, 255, 255, 0.3);
+            color: var(--text-muted);
             font-weight: bold;
         }
 
-        /* === STANDINGS TABLE === */
+        /* === STANDINGS === */
         .standings-wrap {
             overflow-x: auto;
         }
@@ -544,14 +596,14 @@
         }
 
         .standings-table th {
-            background: var(--primary);
-            color: var(--accent);
+            background: var(--s2g-navy);
+            color: var(--s2g-orange);
             padding: 12px 8px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 2px solid var(--s2g-orange);
         }
 
         .standings-table td {
@@ -562,28 +614,28 @@
         }
 
         .standings-table tr:hover td {
-            background: rgba(255, 215, 0, 0.05);
+            background: rgba(232, 120, 26, 0.05);
         }
 
         .standings-table .rank-1 td {
-            background: rgba(255, 215, 0, 0.1) !important;
-            color: var(--accent);
+            background: rgba(232, 120, 26, 0.12) !important;
+            color: var(--s2g-orange);
             font-weight: bold;
         }
 
         .standings-table .rank-2 td {
-            background: rgba(192, 192, 192, 0.05) !important;
+            background: rgba(192, 192, 192, 0.06) !important;
         }
 
         .standings-table .rank-3 td {
-            background: rgba(205, 127, 50, 0.05) !important;
+            background: rgba(205, 127, 50, 0.06) !important;
         }
 
         .rank-medal {
             font-size: 1.1rem;
         }
 
-        /* === PRINT STYLES === */
+        /* === PRINT === */
         @media print {
             body {
                 background: white;
@@ -592,7 +644,8 @@
 
             header,
             .nav-tabs,
-            .no-print {
+            .no-print,
+            .reset-config-panel {
                 display: none !important;
             }
 
@@ -602,13 +655,14 @@
                 box-shadow: none;
                 color: black;
                 break-inside: avoid;
+                backdrop-filter: none;
             }
 
             h2,
             h3,
             h4,
             label {
-                color: #1a237e;
+                color: var(--s2g-navy);
             }
 
             .team-card,
@@ -618,7 +672,14 @@
             }
 
             .standings-table th {
-                background: #1a237e;
+                background: var(--s2g-navy);
+                color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .summary-table th {
+                background: var(--s2g-navy);
                 color: white;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -645,7 +706,13 @@
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .header-logo {
+                width: 50px;
+                height: 50px;
             }
 
             main {
@@ -658,8 +725,12 @@
 
             .nav-tabs button {
                 min-width: 100px;
-                font-size: 0.8rem;
-                padding: 8px 10px;
+                font-size: 0.78rem;
+                padding: 8px 8px;
+            }
+
+            .header-badge {
+                display: none;
             }
         }
     </style>
@@ -668,19 +739,23 @@
 <body>
 
     <header>
-        <h1>☪ Ramadan Cup 2026 ⚽</h1>
-        <p>Organisation de Tournoi — Tirage au Sort — Calendrier — Classement</p>
+        <img src="logo-s2g.png" alt="S2G Africa" class="header-logo">
+        <div class="header-text">
+            <h1>Ramadan Cup 2026</h1>
+            <p>S2G Africa — Essais · Études · Contrôle</p>
+        </div>
+        <span class="header-badge">☪</span>
     </header>
 
     <main>
         <!-- Navigation -->
         <div class="nav-tabs no-print" id="nav-tabs">
             <button class="active" onclick="showSection('setup', this)">📋 Configuration</button>
-            <button onclick="showSection('draw', this)">🎲 Tirage - Équipes</button>
-            <button onclick="showSection('matches', this)">⚽ Tirage - Matchs</button>
+            <button onclick="showSection('draw', this)">🎲 Tirage — Équipes</button>
+            <button onclick="showSection('matches', this)">⚽ Tirage — Matchs</button>
             <button onclick="showSection('standings', this)">🏆 Classement</button>
-            <button class="btn-export" onclick="exportData()">📤 Export PDF</button>
-            <button class="btn-danger" onclick="resetAll()">🗑 Reset</button>
+            <button class="btn-util export-btn" onclick="exportData()">📤 PDF</button>
+            <button class="btn-util reset-btn" onclick="resetAll()">🗑 Reset Tout</button>
         </div>
 
         <!-- ========== 1. SETUP ========== -->
@@ -726,8 +801,8 @@
                     <h3>🛡️ Équipe Invitée (Hors Tirage)</h3>
                     <div class="input-group">
                         <label>Nom de l'équipe</label>
-                        <input type="text" value="S2G Test Indus" disabled>
-                        <label style="margin-top:0.75rem">Joueurs (optionnel, pour information)</label>
+                        <input type="text" value="S2G Test Indus" disabled style="opacity:0.6">
+                        <label style="margin-top:0.75rem">Joueurs (optionnel)</label>
                         <textarea id="fixed-team-players"
                             placeholder="Liste des joueurs de S2G Test Indus..."></textarea>
                     </div>
@@ -736,9 +811,9 @@
                 </div>
             </div>
 
-            <!-- Player Summary Table -->
+            <!-- Player Summary -->
             <div id="player-summary-container" class="hidden"
-                style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,215,0,0.15);">
+                style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(232,120,26,0.15);">
                 <h3>📊 Récapitulatif des Joueurs Inscrits</h3>
                 <div style="overflow-x:auto;">
                     <table class="summary-table">
@@ -754,27 +829,40 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Reset Configuration Panel -->
+            <div class="reset-config-panel">
+                <h3>🔄 Réinitialisation Partielle</h3>
+                <p style="color:#aaa; font-size:0.88rem; margin-bottom:0.75rem;">Cochez ce que vous souhaitez
+                    réinitialiser, puis cliquez sur le bouton.</p>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="reset-dates"> 📅 Dates des journées</label>
+                    <label><input type="checkbox" id="reset-cat1"> Cat 1 (Niveau 1)</label>
+                    <label><input type="checkbox" id="reset-cat2"> Cat 2 (Niveau 2)</label>
+                    <label><input type="checkbox" id="reset-cat3"> Cat 3 (Niveau 3)</label>
+                    <label><input type="checkbox" id="reset-fixed"> S2G Test Indus</label>
+                </div>
+                <button class="btn btn-danger" onclick="resetPartial()">🗑 Réinitialiser la sélection</button>
+            </div>
         </section>
 
         <!-- ========== 2. DRAW ========== -->
         <section id="draw" class="hidden">
             <h2>🎲 Tirage au Sort — Équipes</h2>
-
             <div class="draw-info no-print">
                 <h3 id="draw-status-title">⏳ En attente de configuration</h3>
                 <p id="draw-status-desc">Configurez d'abord les joueurs dans l'onglet Configuration, puis validez.</p>
                 <div class="draw-buttons">
                     <button class="btn btn-primary" id="draw-btn" onclick="performNextDraw()" disabled>🎯 Tirer le
                         prochain joueur</button>
-                    <button class="btn btn-buzzer" id="draw-auto-btn" onclick="performAutoDraw()" disabled>🚨 BUZZER —
-                        Tirage Automatique</button>
+                    <button class="btn btn-buzzer" id="draw-auto-btn" onclick="performAutoDraw()" disabled>🚨
+                        BUZZER</button>
                 </div>
                 <div id="last-drawn"></div>
                 <div class="draw-progress">
                     <div class="draw-progress-bar" id="draw-progress" style="width:0%"></div>
                 </div>
             </div>
-
             <div class="teams-container" id="teams-display"></div>
         </section>
 
@@ -782,8 +870,8 @@
         <section id="matches" class="hidden">
             <h2>⚽ Tirage au Sort — Matchs</h2>
             <div style="text-align:center; margin-bottom:1.5rem;" class="no-print">
-                <button class="btn btn-orange" onclick="generateSchedule(true)">🔄 Générer / Relancer le Calendrier
-                    (Aléatoire)</button>
+                <button class="btn btn-schedule" onclick="generateSchedule(true)">🔄 Générer / Relancer le Calendrier
+                    (Tirage Aléatoire)</button>
             </div>
             <div id="matches-container"></div>
         </section>
@@ -817,9 +905,14 @@
         // ==============================================================
         // STATE
         // ==============================================================
-        const DEFAULT_STATE = {
+        const DEFAULT_DATES = ['2026-02-19', '2026-02-23', '2026-02-26', '2026-03-02', '2026-03-05'];
+        const STORAGE_KEY = 'ramadanCup2026_v3';
+        const SECTIONS = ['setup', 'draw', 'matches', 'standings'];
+        const TOTAL_DRAW_SLOTS = 35;
+
+        let appState = {
             config: {
-                dates: ['2026-02-19', '2026-02-23', '2026-02-26', '2026-03-02', '2026-03-05'],
+                dates: [...DEFAULT_DATES],
                 dateDemi: '2026-03-09',
                 dateFinale: '2026-03-13',
                 players: { cat1: [], cat2: [], cat3: [] },
@@ -833,20 +926,10 @@
                 { id: 5, name: 'Équipe Expertise', players: [] },
                 { id: 6, name: 'S2G Test Indus', players: [], isFixed: true }
             ],
-            draw: {
-                step: 0,
-                availablePlayers: { cat1: [], cat2: [], cat3: [] },
-                history: []
-            },
+            draw: { step: 0, availablePlayers: { cat1: [], cat2: [], cat3: [] }, history: [] },
             matches: [],
             standings: []
         };
-
-        let appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
-
-        const STORAGE_KEY = 'ramadanCup2026_v2';
-        const SECTIONS = ['setup', 'draw', 'matches', 'standings'];
-        const TOTAL_DRAW_SLOTS = 35; // 5 teams * 7 players
 
         // ==============================================================
         // INIT
@@ -870,8 +953,6 @@
         function showSection(id, btnEl) {
             SECTIONS.forEach(s => document.getElementById(s).classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
-
-            // Update active tab
             document.querySelectorAll('#nav-tabs button').forEach(b => b.classList.remove('active'));
             if (btnEl) btnEl.classList.add('active');
         }
@@ -880,21 +961,18 @@
         // SETUP
         // ==============================================================
         function saveSetup() {
-            // Dates
             for (let i = 1; i <= 5; i++) {
                 appState.config.dates[i - 1] = document.getElementById(`date-j${i}`).value;
             }
             appState.config.dateDemi = document.getElementById('date-demi').value;
             appState.config.dateFinale = document.getElementById('date-finale').value;
 
-            // Players
             const parse = id => document.getElementById(id).value.split('\n').map(s => s.trim()).filter(s => s !== '');
             appState.config.players.cat1 = parse('cat1-input');
             appState.config.players.cat2 = parse('cat2-input');
             appState.config.players.cat3 = parse('cat3-input');
             appState.config.fixedTeamPlayers = parse('fixed-team-players');
 
-            // Fixed team
             appState.teams[5].players = appState.config.fixedTeamPlayers.map(name => ({ name, cat: 'Fixe' }));
 
             // Validation
@@ -903,24 +981,14 @@
             if (appState.config.players.cat2.length !== 15) warnings.push(`Cat 2 : ${appState.config.players.cat2.length}/15 joueurs`);
             if (appState.config.players.cat3.length !== 10) warnings.push(`Cat 3 : ${appState.config.players.cat3.length}/10 joueurs`);
 
-            // Check duplicates
             const allNames = [...appState.config.players.cat1, ...appState.config.players.cat2, ...appState.config.players.cat3];
             const dupes = allNames.filter((n, i) => allNames.indexOf(n) !== i);
-            if (dupes.length > 0) warnings.push(`⚠️ Doublons détectés : ${[...new Set(dupes)].join(', ')}`);
+            if (dupes.length > 0) warnings.push(`⚠️ Doublons : ${[...new Set(dupes)].join(', ')}`);
 
-            if (warnings.length > 0) {
-                alert("Attention :\n" + warnings.join('\n'));
-            }
+            if (warnings.length > 0) alert("Attention :\n" + warnings.join('\n'));
 
-            // Init draw pool
-            if (appState.draw.step === 0) {
-                setupDrawPools();
-            }
-
-            // Auto-generate schedule
-            if (appState.matches.length === 0) {
-                generateSchedule(false);
-            }
+            if (appState.draw.step === 0) setupDrawPools();
+            if (appState.matches.length === 0) generateSchedule(false);
 
             saveData();
             renderSetupSummary();
@@ -933,14 +1001,14 @@
         function renderSetupSummary() {
             const container = document.getElementById('player-summary-container');
             const tbody = document.getElementById('player-summary-body');
-            if (!container || !tbody) return; // Guard
+            if (!container || !tbody) return;
 
             const c1 = appState.config.players.cat1;
             const c2 = appState.config.players.cat2;
             const c3 = appState.config.players.cat3;
             const cF = appState.config.fixedTeamPlayers;
 
-            if (c1.length === 0 && c2.length === 0 && c3.length === 0 && cF.length === 0) {
+            if (!c1.length && !c2.length && !c3.length && !cF.length) {
                 container.classList.add('hidden');
                 return;
             }
@@ -959,6 +1027,75 @@
         `;
                 tbody.appendChild(tr);
             }
+        }
+
+        // ==============================================================
+        // RESET PARTIEL
+        // ==============================================================
+        function resetPartial() {
+            const checks = {
+                dates: document.getElementById('reset-dates').checked,
+                cat1: document.getElementById('reset-cat1').checked,
+                cat2: document.getElementById('reset-cat2').checked,
+                cat3: document.getElementById('reset-cat3').checked,
+                fixed: document.getElementById('reset-fixed').checked
+            };
+
+            const selected = Object.values(checks).filter(v => v);
+            if (selected.length === 0) {
+                alert("Veuillez cocher au moins un élément à réinitialiser.");
+                return;
+            }
+
+            let msg = "Réinitialiser :\n";
+            if (checks.dates) msg += "  • Les dates\n";
+            if (checks.cat1) msg += "  • Joueurs Cat 1\n";
+            if (checks.cat2) msg += "  • Joueurs Cat 2\n";
+            if (checks.cat3) msg += "  • Joueurs Cat 3\n";
+            if (checks.fixed) msg += "  • Joueurs S2G Test Indus\n";
+            msg += "\nContinuer ?";
+
+            if (!confirm(msg)) return;
+
+            if (checks.dates) {
+                appState.config.dates = [...DEFAULT_DATES];
+                appState.config.dateDemi = '2026-03-09';
+                appState.config.dateFinale = '2026-03-13';
+                for (let i = 1; i <= 5; i++) document.getElementById(`date-j${i}`).value = DEFAULT_DATES[i - 1];
+                document.getElementById('date-demi').value = '2026-03-09';
+                document.getElementById('date-finale').value = '2026-03-13';
+            }
+
+            if (checks.cat1) {
+                appState.config.players.cat1 = [];
+                document.getElementById('cat1-input').value = '';
+            }
+
+            if (checks.cat2) {
+                appState.config.players.cat2 = [];
+                document.getElementById('cat2-input').value = '';
+            }
+
+            if (checks.cat3) {
+                appState.config.players.cat3 = [];
+                document.getElementById('cat3-input').value = '';
+            }
+
+            if (checks.fixed) {
+                appState.config.fixedTeamPlayers = [];
+                appState.teams[5].players = [];
+                document.getElementById('fixed-team-players').value = '';
+            }
+
+            // Uncheck all
+            ['reset-dates', 'reset-cat1', 'reset-cat2', 'reset-cat3', 'reset-fixed'].forEach(id => {
+                document.getElementById(id).checked = false;
+            });
+
+            saveData();
+            renderSetupSummary();
+            renderTeams();
+            alert("✅ Réinitialisation effectuée !");
         }
 
         // ==============================================================
@@ -983,7 +1120,7 @@
         }
 
         function getNextSlot() {
-            const teamIndices = [0, 1, 2, 3, 4];
+            const teamIdx = [0, 1, 2, 3, 4];
             const phases = [
                 { cat: 'cat1', catLabel: 'Catégorie 1', rounds: 2 },
                 { cat: 'cat2', catLabel: 'Catégorie 2', rounds: 3 },
@@ -993,11 +1130,9 @@
             for (const phase of phases) {
                 const catKey = 'Cat ' + phase.cat.charAt(3);
                 for (let r = 0; r < phase.rounds; r++) {
-                    for (const tIdx of teamIndices) {
-                        const count = appState.teams[tIdx].players.filter(p => p.cat === catKey).length;
-                        if (count < (r + 1)) {
-                            return { teamIdx: tIdx, cat: phase.cat, catLabel: phase.catLabel };
-                        }
+                    for (const t of teamIdx) {
+                        const count = appState.teams[t].players.filter(p => p.cat === catKey).length;
+                        if (count < (r + 1)) return { teamIdx: t, cat: phase.cat, catLabel: phase.catLabel };
                     }
                 }
             }
@@ -1006,9 +1141,7 @@
 
         function getDrawProgress() {
             let filled = 0;
-            for (let i = 0; i < 5; i++) {
-                filled += appState.teams[i].players.length;
-            }
+            for (let i = 0; i < 5; i++) filled += appState.teams[i].players.length;
             return Math.round((filled / TOTAL_DRAW_SLOTS) * 100);
         }
 
@@ -1017,10 +1150,7 @@
             if (!slot) return;
 
             const pool = appState.draw.availablePlayers[slot.cat];
-            if (pool.length === 0) {
-                alert(`Plus de joueurs disponibles en ${slot.catLabel} !`);
-                return;
-            }
+            if (pool.length === 0) { alert(`Plus de joueurs en ${slot.catLabel} !`); return; }
 
             const player = pool.pop();
             const catKey = 'Cat ' + slot.cat.charAt(3);
@@ -1037,12 +1167,10 @@
 
         function performAutoDraw() {
             if (!confirm("Lancer le tirage automatique complet ?")) return;
-
             const interval = setInterval(() => {
-                const slot = getNextSlot();
-                if (!slot) {
+                if (!getNextSlot()) {
                     clearInterval(interval);
-                    alert("🎉 Tirage terminé ! Toutes les équipes sont complètes.");
+                    alert("🎉 Tirage terminé !");
                     return;
                 }
                 performNextDraw();
@@ -1055,10 +1183,10 @@
             const autoBtn = document.getElementById('draw-auto-btn');
             const title = document.getElementById('draw-status-title');
             const desc = document.getElementById('draw-status-desc');
-            const progress = document.getElementById('draw-progress');
+            const bar = document.getElementById('draw-progress');
 
             const pct = getDrawProgress();
-            progress.style.width = pct + '%';
+            bar.style.width = pct + '%';
 
             if (slot) {
                 btn.disabled = false;
@@ -1073,7 +1201,7 @@
                     desc.innerText = "Toutes les équipes sont complètes. Passez à l'onglet Matchs.";
                 } else {
                     title.innerText = "⏳ En attente de configuration";
-                    desc.innerText = "Configurez d'abord les joueurs dans l'onglet Configuration, puis validez.";
+                    desc.innerText = "Configurez d'abord les joueurs, puis validez.";
                 }
             }
         }
@@ -1089,17 +1217,14 @@
                 const div = document.createElement('div');
                 div.className = `team-card ${team.isFixed ? 'fixed-team' : ''}`;
 
-                let playersHtml = '<ul class="player-list">';
+                let html = '<ul class="player-list">';
                 team.players.forEach((p, i) => {
-                    const catClass = p.cat === 'Cat 1' ? 'cat1' : p.cat === 'Cat 2' ? 'cat2' : p.cat === 'Cat 3' ? 'cat3' : 'fixe';
-                    playersHtml += `<li><span class="cat-badge ${catClass}">${p.cat}</span> ${i + 1}. ${p.name}</li>`;
+                    const cls = p.cat === 'Cat 1' ? 'cat1' : p.cat === 'Cat 2' ? 'cat2' : p.cat === 'Cat 3' ? 'cat3' : 'fixe';
+                    html += `<li><span class="cat-badge ${cls}">${p.cat}</span> ${i + 1}. ${p.name}</li>`;
                 });
-                playersHtml += '</ul>';
+                html += '</ul>';
 
-                div.innerHTML = `
-            <h4>${team.name} <span class="count">${team.players.length}/7</span></h4>
-            ${playersHtml}
-        `;
+                div.innerHTML = `<h4>${team.name} <span class="count">${team.players.length}/7</span></h4>${html}`;
                 container.appendChild(div);
             });
         }
@@ -1109,19 +1234,18 @@
         // ==============================================================
         function generateSchedule(randomize) {
             if (randomize && appState.matches.length > 0) {
-                if (!confirm("Attention : Cela va écraser le calendrier et les scores existants. Continuer ?")) return;
+                if (!confirm("Écraser le calendrier et les scores existants ?")) return;
             }
 
-            // Round Robin for 6 teams (circle method)
             let teams = [0, 1, 2, 3, 4, 5];
             let rounds = [];
 
             for (let r = 0; r < 5; r++) {
-                let rm = [];
-                rm.push({ t1: teams[0], t2: teams[5] });
-                rm.push({ t1: teams[1], t2: teams[4] });
-                rm.push({ t1: teams[2], t2: teams[3] });
-                rounds.push(rm);
+                rounds.push([
+                    { t1: teams[0], t2: teams[5] },
+                    { t1: teams[1], t2: teams[4] },
+                    { t1: teams[2], t2: teams[3] }
+                ]);
                 let last = teams.pop();
                 teams.splice(1, 0, last);
             }
@@ -1129,28 +1253,18 @@
             if (randomize) {
                 rounds = fisherYatesShuffle(rounds);
                 rounds.forEach(r => {
-                    // Shuffle within round
                     for (let i = r.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
                         [r[i], r[j]] = [r[j], r[i]];
                     }
-                    // Random home/away
-                    r.forEach(m => {
-                        if (Math.random() > 0.5) { let t = m.t1; m.t1 = m.t2; m.t2 = t; }
-                    });
+                    r.forEach(m => { if (Math.random() > 0.5) { let t = m.t1; m.t1 = m.t2; m.t2 = t; } });
                 });
             }
 
             appState.matches = [];
             rounds.forEach((round, dayIdx) => {
                 round.forEach(m => {
-                    appState.matches.push({
-                        day: dayIdx + 1,
-                        teamA: m.t1,
-                        teamB: m.t2,
-                        scoreA: null,
-                        scoreB: null
-                    });
+                    appState.matches.push({ day: dayIdx + 1, teamA: m.t1, teamB: m.t2, scoreA: null, scoreB: null });
                 });
             });
 
@@ -1163,21 +1277,20 @@
             const container = document.getElementById('matches-container');
             if (!container) return;
             container.innerHTML = '';
+
             if (appState.matches.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.4);">Aucun match généré. Cliquez sur le bouton ci-dessus.</p>';
+                container.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.3); padding:2rem;">Aucun match. Cliquez sur le bouton ci-dessus pour générer le calendrier.</p>';
                 return;
             }
 
             for (let d = 1; d <= 5; d++) {
                 const dayMatches = appState.matches.filter(m => m.day === d);
-                if (dayMatches.length === 0) continue;
+                if (!dayMatches.length) continue;
 
                 const dateVal = appState.config.dates[d - 1];
                 let dateStr = `Journée ${d}`;
                 if (dateVal) {
-                    try {
-                        dateStr = `Journée ${d} — ` + new Date(dateVal + 'T00:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                    } catch (e) { }
+                    try { dateStr = `Journée ${d} — ` + new Date(dateVal + 'T00:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) { }
                 }
 
                 const dayDiv = document.createElement('div');
@@ -1185,20 +1298,17 @@
 
                 let html = `<h3>📅 ${dateStr}</h3>`;
                 dayMatches.forEach(m => {
-                    const globalIdx = appState.matches.indexOf(m);
+                    const idx = appState.matches.indexOf(m);
                     html += `
                 <div class="match-row">
                     <span class="team-name right">${appState.teams[m.teamA].name}</span>
                     <div class="score-inputs">
-                        <input type="number" min="0" value="${m.scoreA !== null ? m.scoreA : ''}"
-                               onchange="updateScore(${globalIdx},'A',this.value)" placeholder="-">
+                        <input type="number" min="0" value="${m.scoreA !== null ? m.scoreA : ''}" onchange="updateScore(${idx},'A',this.value)" placeholder="-">
                         <span>:</span>
-                        <input type="number" min="0" value="${m.scoreB !== null ? m.scoreB : ''}"
-                               onchange="updateScore(${globalIdx},'B',this.value)" placeholder="-">
+                        <input type="number" min="0" value="${m.scoreB !== null ? m.scoreB : ''}" onchange="updateScore(${idx},'B',this.value)" placeholder="-">
                     </div>
                     <span class="team-name">${appState.teams[m.teamB].name}</span>
-                </div>
-            `;
+                </div>`;
                 });
 
                 dayDiv.innerHTML = html;
@@ -1209,7 +1319,7 @@
         function updateScore(idx, side, value) {
             appState.matches[idx]['score' + side] = value === '' ? null : parseInt(value);
             saveData();
-            updateStandings(); // Auto-update standings
+            updateStandings();
         }
 
         // ==============================================================
@@ -1217,8 +1327,7 @@
         // ==============================================================
         function updateStandings() {
             let stats = appState.teams.map((t, i) => ({
-                id: i, name: t.name,
-                pts: 0, mj: 0, g: 0, n: 0, p: 0, bp: 0, bc: 0, diff: 0
+                id: i, name: t.name, pts: 0, mj: 0, g: 0, n: 0, p: 0, bp: 0, bc: 0, diff: 0
             }));
 
             appState.matches.forEach(m => {
@@ -1228,23 +1337,13 @@
                     stats[m.teamA].diff += (m.scoreA - m.scoreB);
                     stats[m.teamB].diff += (m.scoreB - m.scoreA);
 
-                    if (m.scoreA > m.scoreB) {
-                        stats[m.teamA].pts += 3; stats[m.teamA].g++; stats[m.teamB].p++;
-                    } else if (m.scoreA < m.scoreB) {
-                        stats[m.teamB].pts += 3; stats[m.teamB].g++; stats[m.teamA].p++;
-                    } else {
-                        stats[m.teamA].pts += 1; stats[m.teamA].n++;
-                        stats[m.teamB].pts += 1; stats[m.teamB].n++;
-                    }
+                    if (m.scoreA > m.scoreB) { stats[m.teamA].pts += 3; stats[m.teamA].g++; stats[m.teamB].p++; }
+                    else if (m.scoreA < m.scoreB) { stats[m.teamB].pts += 3; stats[m.teamB].g++; stats[m.teamA].p++; }
+                    else { stats[m.teamA].pts++; stats[m.teamA].n++; stats[m.teamB].pts++; stats[m.teamB].n++; }
                 }
             });
 
-            stats.sort((a, b) => {
-                if (b.pts !== a.pts) return b.pts - a.pts;
-                if (b.diff !== a.diff) return b.diff - a.diff;
-                return b.bp - a.bp;
-            });
-
+            stats.sort((a, b) => b.pts - a.pts || b.diff - a.diff || b.bp - a.bp);
             appState.standings = stats;
             renderStandings();
         }
@@ -1253,7 +1352,6 @@
             const tbody = document.querySelector('#standings-table tbody');
             if (!tbody) return;
             tbody.innerHTML = '';
-
             const medals = ['🥇', '🥈', '🥉'];
 
             appState.standings.forEach((s, idx) => {
@@ -1262,18 +1360,12 @@
                 else if (idx === 1) tr.className = 'rank-2';
                 else if (idx === 2) tr.className = 'rank-3';
 
-                const rankDisplay = idx < 3 ? `<span class="rank-medal">${medals[idx]}</span>` : (idx + 1);
-
                 tr.innerHTML = `
-            <td>${rankDisplay}</td>
+            <td>${idx < 3 ? '<span class="rank-medal">' + medals[idx] + '</span>' : idx + 1}</td>
             <td style="text-align:left; font-weight:600;">${s.name}</td>
             <td><strong>${s.pts}</strong></td>
-            <td>${s.mj}</td>
-            <td>${s.g}</td>
-            <td>${s.n}</td>
-            <td>${s.p}</td>
-            <td>${s.bp}</td>
-            <td>${s.bc}</td>
+            <td>${s.mj}</td><td>${s.g}</td><td>${s.n}</td><td>${s.p}</td>
+            <td>${s.bp}</td><td>${s.bc}</td>
             <td>${s.diff > 0 ? '+' + s.diff : s.diff}</td>
         `;
                 tbody.appendChild(tr);
@@ -1284,28 +1376,23 @@
         // PERSISTENCE
         // ==============================================================
         function saveData() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-            } catch (e) { console.warn('Erreur sauvegarde:', e); }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) { }
         }
 
         function loadData() {
             try {
                 const data = localStorage.getItem(STORAGE_KEY);
-                if (data) {
-                    appState = JSON.parse(data);
-                }
-            } catch (e) { console.warn('Erreur chargement:', e); }
+                if (data) appState = JSON.parse(data);
+            } catch (e) { }
 
-            // Populate inputs from state
             for (let i = 1; i <= 5; i++) {
                 const el = document.getElementById(`date-j${i}`);
                 if (el && appState.config.dates[i - 1]) el.value = appState.config.dates[i - 1];
             }
-            const demi = document.getElementById('date-demi');
-            if (demi && appState.config.dateDemi) demi.value = appState.config.dateDemi;
-            const finale = document.getElementById('date-finale');
-            if (finale && appState.config.dateFinale) finale.value = appState.config.dateFinale;
+            const d1 = document.getElementById('date-demi');
+            if (d1 && appState.config.dateDemi) d1.value = appState.config.dateDemi;
+            const d2 = document.getElementById('date-finale');
+            if (d2 && appState.config.dateFinale) d2.value = appState.config.dateFinale;
 
             if (appState.config.players.cat1.length) document.getElementById('cat1-input').value = appState.config.players.cat1.join('\n');
             if (appState.config.players.cat2.length) document.getElementById('cat2-input').value = appState.config.players.cat2.join('\n');
@@ -1314,19 +1401,17 @@
         }
 
         function resetAll() {
-            if (confirm("⚠️ Attention ! Cela va effacer TOUTES les données. Continuer ?")) {
+            if (confirm("⚠️ Effacer TOUTES les données (config, tirage, scores) ? Cette action est irréversible.")) {
                 localStorage.removeItem(STORAGE_KEY);
                 location.reload();
             }
         }
 
         function exportData() {
-            // Show all printable sections
             SECTIONS.forEach(s => document.getElementById(s).classList.remove('hidden'));
             updateStandings();
             setTimeout(() => {
                 window.print();
-                // Re-hide all and show setup
                 SECTIONS.forEach(s => document.getElementById(s).classList.add('hidden'));
                 document.getElementById('setup').classList.remove('hidden');
             }, 300);
