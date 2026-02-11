@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire Ramadan Cup</title>
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            /* Bleu Nuit */
+            --accent-color: #ffd700;
+            /* Or */
+            --text-color: #333;
+            --bg-color: #f4f4f9;
+            /* Blanc cassé */
+            --card-bg: #fff;
+            --success-color: #2e7d32;
+            --danger-color: #c62828;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #283593;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background-color: #757575;
+            color: white;
+        }
+
+        button.secondary:hover {
+            background-color: #616161;
+        }
+
+        button.danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        button.danger:hover {
+            background-color: #b71c1c;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Setup Section Grid */
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Draw Section */
+        .draw-controls {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card.fixed-team {
+            border-color: #f57f17;
+            background-color: #fffde7;
+        }
+
+        .team-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .player-list li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.95rem;
+        }
+
+        .player-list li .cat-badge {
+            font-size: 0.75em;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+            color: #555;
+        }
+
+        .current-draw-info {
+            background: #e8eaf6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        /* Matches Section */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .match-day {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .match-day h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .match-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .match-row:last-child {
+            border-bottom: none;
+        }
+
+        .team-name {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .team-name.right {
+            text-align: right;
+        }
+
+        .score-inputs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+        }
+
+        .score-inputs input {
+            width: 50px;
+            text-align: center;
+        }
+
+        /* Standings Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: normal;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e8eaf6;
+        }
+
+        .rank-1 {
+            background-color: #fff9c4 !important;
+            /* Petit highlight or pour le 1er */
+            font-weight: bold;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            header,
+            .no-print {
+                display: none !important;
+            }
+
+            section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+                margin-bottom: 1rem;
+                padding: 1rem;
+            }
+
+            input {
+                border: none;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Ramadan Cup Manager</h1>
+        <p>Organisation de Tournoi - Tirage - Calendrier - Classement</p>
+    </header>
+
+    <main>
+        <!-- Navigation / Tabs -->
+        <div style="margin-bottom: 1rem; display: flex; gap: 1rem; flex-wrap: wrap;" class="no-print">
+            <button onclick="showSection('setup')">1. Configuration</button>
+            <button onclick="showSection('draw')">2. Tirage au Sort - Équipes</button>
+            <button onclick="showSection('matches')">3. Tirage au Sort - Matchs</button>
+            <button onclick="showSection('standings')">4. Classement</button>
+            <button class="secondary" onclick="exportData()">Sauvegarder / Exporter</button>
+            <button class="danger" onclick="resetAll()">Réinitialiser</button>
+        </div>
+
+        <!-- 1. SETUP SECTION -->
+        <section id="setup">
+            <h2>Paramétrage du Tournoi</h2>
+            <div class="setup-grid">
+                <div>
+                    <h3>Dates des Journées</h3>
+                    <div class="input-group"><label>Journée 1</label><input type="date" id="date-j1"></div>
+                    <div class="input-group"><label>Journée 2</label><input type="date" id="date-j2"></div>
+                    <div class="input-group"><label>Journée 3</label><input type="date" id="date-j3"></div>
+                    <div class="input-group"><label>Journée 4</label><input type="date" id="date-j4"></div>
+                    <div class="input-group"><label>Journée 5</label><input type="date" id="date-j5"></div>
+                </div>
+                <div>
+                    <h3>Listes des Joueurs</h3>
+                    <div class="input-group">
+                        <label>Catégorie 1 (10 joueurs, 1/ligne)</label>
+                        <textarea id="cat1-input" placeholder="Coller les noms ici..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Catégorie 2 (15 joueurs, 1/ligne)</label>
+                        <textarea id="cat2-input" placeholder="Coller les noms ici..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Catégorie 3 (10 joueurs, 1/ligne)</label>
+                        <textarea id="cat3-input" placeholder="Coller les noms ici..."></textarea>
+                    </div>
+                </div>
+                <div>
+                    <h3>Équipes (Fixes)</h3>
+                    <div class="input-group">
+                        <label>Équipe Hors Tirage</label>
+                        <input type="text" value="S2G Test Indus" disabled>
+                        <label style="margin-top:0.5rem">Joueurs (Optionnel)</label>
+                        <textarea id="fixed-team-players"
+                            placeholder="Liste des joueurs de Test Indus (pour info)"></textarea>
+                    </div>
+                    <button onclick="saveSetup()" style="width:100%; margin-top:1rem;">Valider et Initialiser le
+                        Tirage</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DRAW SECTION -->
+        <section id="draw" class="hidden">
+            <h2>Tirage au Sort - Équipes</h2>
+
+            <div class="current-draw-info no-print">
+                <h3 id="draw-status-title">En attente</h3>
+                <p id="draw-status-desc">Configurez d'abord les joueurs dans l'onglet Configuration.</p>
+                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                    <button id="draw-btn" onclick="performNextDraw()" disabled>Tirer le prochain joueur</button>
+                    <button id="draw-auto-btn" onclick="performAutoDraw()" class="danger" disabled
+                        style="background-color: #d81b60; font-size: 1.1em; box-shadow: 0 4px 0 #ad1457;">🚨 BUZZER :
+                        Tirage Rapide</button>
+                </div>
+                <div id="last-drawn"
+                    style="margin-top:0.5rem; font-weight:bold; height: 1.5em; color: var(--primary-color);"></div>
+            </div>
+
+            <div class="teams-container" id="teams-display">
+                <!-- Teams generated by JS -->
+            </div>
+        </section>
+
+        <!-- 3. MATCHES SECTION -->
+        <section id="matches" class="hidden">
+            <h2>Tirage au Sort - Matchs</h2>
+            <div style="text-align:center; margin-bottom:1rem;">
+                <button onclick="generateSchedule(true)" style="background-color: #f57f17; color:white;">🔄 Générer le
+                    Calendrier (Tirage Aléatoire)</button>
+            </div>
+            <div id="matches-container" class="matches-grid">
+                <!-- Matches generated by JS -->
+            </div>
+            <div style="text-align:center; margin-top:2rem;">
+                <button onclick="updateStandings()">Mettre à jour le Classement</button>
+            </div>
+        </section>
+
+        <!-- 4. STANDINGS SECTION -->
+        <section id="standings" class="hidden">
+            <h2>Classement</h2>
+            <div style="overflow-x:auto;">
+                <table id="standings-table">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Équipe</th>
+                            <th>Points</th>
+                            <th>MJ</th>
+                            <th>G</th>
+                            <th>N</th>
+                            <th>P</th>
+                            <th>BP</th>
+                            <th>BC</th>
+                            <th>Diff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Standings generated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- STATE MANAGEMENT ---
+        let appState = {
+            config: {
+                dates: ['', '', '', '', ''],
+                players: { cat1: [], cat2: [], cat3: [] },
+                fixedTeamPlayers: []
+            },
+            teams: [
+                { id: 1, name: 'Équipe Qualité', players: [] },
+                { id: 2, name: 'Équipe Rigueur', players: [] },
+                { id: 3, name: 'Équipe Mesures', players: [] },
+                { id: 4, name: 'Équipe Essais', players: [] },
+                { id: 5, name: 'Équipe Expertise', players: [] },
+                { id: 6, name: 'S2G Test Indus', players: [], isFixed: true } // No items in draw
+            ],
+            draw: {
+                step: 0, // 0: Not started, 1: Cat1 (R1), 2: Cat1 (R2), 3: Cat2 (R3), ...
+                availablePlayers: { cat1: [], cat2: [], cat3: [] },
+                history: [] // who went where
+            },
+            matches: [], // Array of match objects
+            standings: []
+        };
+
+        // --- DOM ELEMENTS ---
+        const sections = ['setup', 'draw', 'matches', 'standings'];
+
+        // --- INITIALIZATION ---
+        window.onload = function () {
+            loadData();
+            renderTeams();
+            renderMatches();
+            renderStandings();
+            renderSetupSummary();
+            updateDrawUI();
+        };
+
+        function showSection(id) {
+            sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        // --- SETUP LOGIC ---
+        function saveSetup() {
+            // Dates
+            for (let i = 1; i <= 5; i++) {
+                appState.config.dates[i - 1] = document.getElementById(`date-j${i}`).value;
+            }
+
+            // Players
+            const parseList = (id) => document.getElementById(id).value.split('\n').map(s => s.trim()).filter(s => s !== '');
+            appState.config.players.cat1 = parseList('cat1-input');
+            appState.config.players.cat2 = parseList('cat2-input');
+            appState.config.players.cat3 = parseList('cat3-input');
+            appState.config.fixedTeamPlayers = parseList('fixed-team-players');
+
+            // Populate Fixed Team Players if provided
+            appState.teams[5].players = appState.config.fixedTeamPlayers.map(name => ({ name, cat: 'Fixe' }));
+
+            // Validation (Basic)
+            if (appState.config.players.cat1.length < 10) alert("Attention: Moins de 10 joueurs en Cat 1");
+            if (appState.config.players.cat2.length < 15) alert("Attention: Moins de 15 joueurs en Cat 2");
+            if (appState.config.players.cat3.length < 10) alert("Attention: Moins de 10 joueurs en Cat 3");
+
+            // Initialize Draw Pool if not already started
+            if (appState.draw.step === 0) {
+                setupDrawPools();
+            }
+
+            // Generate Schedule if not exists
+            if (appState.matches.length === 0) {
+                // Do not auto-generate schedule instantly, let user click the new button or auto-gen plain
+                // But for continuity, we can init empty or standard
+                // generateSchedule(false); 
+            }
+
+            saveData();
+            renderSetupSummary(); // Show the summary table
+            alert("Configuration sauvegardée !");
+            showSection('draw');
+            renderTeams();
+            updateDrawUI();
+        }
+
+        function renderSetupSummary() {
+            const tbody = document.getElementById('player-summary-body');
+            const container = document.getElementById('player-summary-container');
+            container.classList.remove('hidden');
+            tbody.innerHTML = '';
+
+            const c1 = appState.config.players.cat1;
+            const c2 = appState.config.players.cat2;
+            const c3 = appState.config.players.cat3;
+            const cFixed = appState.config.fixedTeamPlayers;
+
+            const maxRows = Math.max(c1.length, c2.length, c3.length, cFixed.length);
+
+            for (let i = 0; i < maxRows; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td>${c1[i] ? (i + 1) + '. ' + c1[i] : ''}</td>
+                <td>${c2[i] ? (i + 1) + '. ' + c2[i] : ''}</td>
+                <td>${c3[i] ? (i + 1) + '. ' + c3[i] : ''}</td>
+                <td>${cFixed[i] ? (i + 1) + '. ' + cFixed[i] : ''}</td>
+            `;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function setupDrawPools() {
+            // Deep copy and shuffle arrays for the draw pool
+            const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+            appState.draw.availablePlayers.cat1 = shuffle(appState.config.players.cat1);
+            appState.draw.availablePlayers.cat2 = shuffle(appState.config.players.cat2);
+            appState.draw.availablePlayers.cat3 = shuffle(appState.config.players.cat3);
+            appState.draw.step = 1;
+            saveData();
+        }
+
+        // --- DRAW LOGIC ---
+        // Sequence: 
+        // Rounds 1-2: Cat 1 (2 per team) -> 5 teams * 2 = 10 players
+        // Rounds 3-5: Cat 2 (3 per team) -> 5 teams * 3 = 15 players
+        // Rounds 6-7: Cat 3 (2 per team) -> 5 teams * 2 = 10 players
+
+        // We will define a flat list of "slots" to fill.
+        // 5 teams x 7 players each = 35 slots.
+        // Order: T1..T5 (Cat1), T1..T5 (Cat1), T1..T5 (Cat2)...
+
+        function getNextSlot() {
+            // Count how many players in each drawing team (Indices 0-4)
+            // We want to fill evenly "Row by Row"
+            // But the requirement says: "Tour 1 & 2: Un joueur Cat 1 assigné à chaque équipe"
+            // Meaning: loop through teams 1-5, give Cat 1. Repeat.
+
+            const drawingTeamsNodes = [0, 1, 2, 3, 4]; // Indices of teams in appState.teams
+
+            // Define phases
+            // Phase 1: 2 rounds of Cat 1
+            // Phase 2: 3 rounds of Cat 2
+            // Phase 3: 2 rounds of Cat 3
+
+            // Check current fill
+            // Map teams to their player counts by category
+            // but simplified: we track global draw step or just check player counts
+
+            // Let's iterate phases.
+
+            // Check Phase 1 (Cat 1)
+            for (let r = 0; r < 2; r++) { // 2 rounds
+                for (let tIdx of drawingTeamsNodes) {
+                    const team = appState.teams[tIdx];
+                    const cat1Count = team.players.filter(p => p.cat === 'Cat 1').length;
+                    if (cat1Count < (r + 1)) return { teamIdx: tIdx, cat: 'cat1', catLabel: 'Catégorie 1' };
+                }
+            }
+
+            // Check Phase 2 (Cat 2)
+            for (let r = 0; r < 3; r++) { // 3 rounds
+                for (let tIdx of drawingTeamsNodes) {
+                    const team = appState.teams[tIdx];
+                    const cat2Count = team.players.filter(p => p.cat === 'Cat 2').length;
+                    if (cat2Count < (r + 1)) return { teamIdx: tIdx, cat: 'cat2', catLabel: 'Catégorie 2' };
+                }
+            }
+
+            // Check Phase 3 (Cat 3)
+            for (let r = 0; r < 2; r++) { // 2 rounds
+                for (let tIdx of drawingTeamsNodes) {
+                    const team = appState.teams[tIdx];
+                    const cat3Count = team.players.filter(p => p.cat === 'Cat 3').length;
+                    if (cat3Count < (r + 1)) return { teamIdx: tIdx, cat: 'cat3', catLabel: 'Catégorie 3' };
+                }
+            }
+
+            return null; // All Done
+        }
+
+        function performNextDraw() {
+            const slot = getNextSlot();
+            if (!slot) {
+                alert("Le tirage est terminé !");
+                return;
+            }
+
+            const pool = appState.draw.availablePlayers[slot.cat];
+            if (pool.length === 0) {
+                alert(`Plus de joueurs disponibles en ${slot.catLabel} ! Vérifiez la configuration.`);
+                return;
+            }
+
+            // Pop player (random because we shuffled at start)
+            const player = pool.pop();
+
+            // Assign
+            appState.teams[slot.teamIdx].players.push({
+                name: player,
+                cat: slot.catLabel.replace('Catégorie ', 'Cat ')
+            });
+
+            const teamName = appState.teams[slot.teamIdx].name;
+            document.getElementById('last-drawn').innerText = `${player} (${slot.catLabel}) -> ${teamName}`;
+
+            saveData();
+            renderTeams();
+            updateDrawUI();
+        }
+
+        function performAutoDraw() {
+            if (!confirm("Lancer le tirage automatique complet ?")) return;
+
+            const interval = setInterval(() => {
+                const slot = getNextSlot();
+                if (!slot) {
+                    clearInterval(interval);
+                    return;
+                }
+                performNextDraw();
+            }, 100); // Fast speed
+        }
+
+        function updateDrawUI() {
+            const slot = getNextSlot();
+            const btn = document.getElementById('draw-btn');
+            const autoBtn = document.getElementById('draw-auto-btn');
+            const title = document.getElementById('draw-status-title');
+            const desc = document.getElementById('draw-status-desc');
+
+            if (slot) {
+                btn.disabled = false;
+                autoBtn.disabled = false;
+                title.innerText = "Tirage en cours";
+                desc.innerText = `Prochain tirage : ${slot.catLabel} pour ${appState.teams[slot.teamIdx].name}`;
+            } else {
+                // Check if we actually have players
+                const totalPlayers = appState.teams[0].players.length;
+                if (totalPlayers > 0) {
+                    btn.disabled = true;
+                    autoBtn.disabled = true;
+                    title.innerText = "Tirage Terminé";
+                    desc.innerText = "Toutes les équipes sont complètes.";
+                    btn.innerText = "Tirage Terminé";
+                } else {
+                    btn.disabled = true;
+                    autoBtn.disabled = true;
+                    btn.innerText = "Commencer le tirage";
+                }
+            }
+        }
+
+        function renderTeams() {
+            const container = document.getElementById('teams-display');
+            container.innerHTML = '';
+
+            appState.teams.forEach(team => {
+                const div = document.createElement('div');
+                div.className = `team-card ${team.isFixed ? 'fixed-team' : ''}`;
+
+                let playersHtml = '<ul class="player-list">';
+                team.players.forEach(p => {
+                    playersHtml += `<li><span class="cat-badge">${p.cat}</span>${p.name}</li>`;
+                });
+                playersHtml += '</ul>';
+
+                div.innerHTML = `
+                <h3>${team.name} <span style="font-size:0.8em; color:#777;">(${team.players.length})</span></h3>
+                ${playersHtml}
+            `;
+                container.appendChild(div);
+            });
+        }
+
+        // --- SCHEDULE LOGIC ---
+        function generateSchedule(randomize = false) {
+            if (randomize && appState.matches.length > 0) {
+                if (!confirm("Attention : Cela va écraser le calendrier et les scores existants. Continuer ?")) return;
+            }
+
+            // Round Robin schedule for 6 teams
+            // Team indices: 0,1,2,3,4,5
+
+            let teams = [0, 1, 2, 3, 4, 5]; // Indices
+            let rounds = [];
+
+            // 5 Rounds for 6 teams
+            for (let r = 0; r < 5; r++) {
+                let roundMatches = [];
+                // Match 1: Fixed vs [0] of rotated sub-array
+                roundMatches.push({ t1: teams[0], t2: teams[5] });
+                // Match 2: [1] vs [4]
+                roundMatches.push({ t1: teams[1], t2: teams[4] });
+                // Match 3: [2] vs [3]
+                roundMatches.push({ t1: teams[2], t2: teams[3] });
+
+                rounds.push(roundMatches);
+
+                // Rotate elements at indices 1 to 5
+                let last = teams.pop();
+                teams.splice(1, 0, last);
+            }
+
+            // Randomize
+            if (randomize) {
+                // 1. Shuffle the ORDER of rounds (Day 1 could be Round 3)
+                rounds.sort(() => Math.random() - 0.5);
+
+                // 2. Shuffle matches WITHIN each round
+                rounds.forEach(r => r.sort(() => Math.random() - 0.5));
+
+                // 3. Shuffle Home/Away within each match (optional but good for 'draw')
+                rounds.forEach(r => {
+                    r.forEach(m => {
+                        if (Math.random() > 0.5) {
+                            let temp = m.t1; m.t1 = m.t2; m.t2 = temp;
+                        }
+                    });
+                });
+            }
+
+            // Create match objects
+            appState.matches = [];
+            rounds.forEach((round, dayIdx) => {
+                round.forEach(m => {
+                    appState.matches.push({
+                        day: dayIdx + 1,
+                        teamA: m.t1,
+                        teamB: m.t2,
+                        scoreA: null,
+                        scoreB: null
+                    });
+                });
+            });
+            saveData();
+        }
+
+        function renderMatches() {
+            if (appState.matches.length === 0) return;
+
+            const container = document.getElementById('matches-container');
+            container.innerHTML = '';
+
+            // Group by Day
+            for (let d = 1; d <= 5; d++) {
+                const dayMatches = appState.matches.filter(m => m.day === d);
+                const dateStr = appState.config.dates[d - 1] ? new Date(appState.config.dates[d - 1]).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : `Journée ${d}`;
+
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'match-day';
+
+                let matchesHtml = '';
+                dayMatches.forEach((m, idx) => {
+                    // Find index in global matches match to bind inputs
+                    // Actually we just need unique IDs or pass object ref
+                    // Let's use array index lookup or ID. Matches are ordered.
+                    // We'll calculate global index.
+                    const globalIdx = appState.matches.findIndex(x => x === m);
+
+                    matchesHtml += `
+                    <div class="match-row">
+                        <span class="team-name right">${appState.teams[m.teamA].name}</span>
+                        <div class="score-inputs">
+                            <input type="number" value="${m.scoreA !== null ? m.scoreA : ''}" onchange="updateScore(${globalIdx}, 'A', this.value)">
+                            <span>-</span>
+                            <input type="number" value="${m.scoreB !== null ? m.scoreB : ''}" onchange="updateScore(${globalIdx}, 'B', this.value)">
+                        </div>
+                        <span class="team-name">${appState.teams[m.teamB].name}</span>
+                    </div>
+                `;
+                });
+
+                dayDiv.innerHTML = `<h3>${dateStr}</h3>${matchesHtml}`;
+                container.appendChild(dayDiv);
+            }
+        }
+
+        function updateScore(matchIdx, side, value) {
+            appState.matches[matchIdx][`score${side}`] = value === '' ? null : parseInt(value);
+            saveData();
+            // Don't auto-update standings everywhere to save perf/flicker, user clicks button
+        }
+
+        // --- STANDINGS LOGIC ---
+        function updateStandings() {
+            // Reset stats
+            let stats = appState.teams.map((t, i) => ({
+                id: i,
+                name: t.name,
+                pts: 0,
+                mj: 0,
+                g: 0,
+                n: 0,
+                p: 0,
+                bp: 0,
+                bc: 0,
+                diff: 0
+            }));
+
+            appState.matches.forEach(m => {
+                if (m.scoreA !== null && m.scoreB !== null) {
+                    // Team A Stats
+                    stats[m.teamA].mj++;
+                    stats[m.teamA].bp += m.scoreA;
+                    stats[m.teamA].bc += m.scoreB;
+                    stats[m.teamA].diff += (m.scoreA - m.scoreB);
+
+                    // Team B Stats
+                    stats[m.teamB].mj++;
+                    stats[m.teamB].bp += m.scoreB;
+                    stats[m.teamB].bc += m.scoreA;
+                    stats[m.teamB].diff += (m.scoreB - m.scoreA);
+
+                    // Points
+                    if (m.scoreA > m.scoreB) {
+                        stats[m.teamA].pts += 3;
+                        stats[m.teamA].g++;
+                        stats[m.teamB].p++;
+                    } else if (m.scoreA < m.scoreB) {
+                        stats[m.teamB].pts += 3;
+                        stats[m.teamB].g++;
+                        stats[m.teamA].p++;
+                    } else {
+                        stats[m.teamA].pts += 1;
+                        stats[m.teamA].n++;
+                        stats[m.teamB].pts += 1;
+                        stats[m.teamB].n++;
+                    }
+                }
+            });
+
+            // Sort: Points > Diff > BP
+            stats.sort((a, b) => {
+                if (b.pts !== a.pts) return b.pts - a.pts;
+                if (b.diff !== a.diff) return b.diff - a.diff;
+                return b.bp - a.bp;
+            });
+
+            appState.standings = stats;
+            saveData();
+            renderStandings();
+        }
+
+        function renderStandings() {
+            const tbody = document.querySelector('#standings-table tbody');
+            tbody.innerHTML = '';
+
+            if (!appState.standings || appState.standings.length === 0) updateStandings();
+
+            appState.standings.forEach((s, idx) => {
+                const tr = document.createElement('tr');
+                if (idx === 0) tr.className = 'rank-1';
+                tr.innerHTML = `
+                <td>${idx + 1}</td>
+                <td style="text-align:left; font-weight:600;">${s.name}</td>
+                <td><strong>${s.pts}</strong></td>
+                <td>${s.mj}</td>
+                <td>${s.g}</td>
+                <td>${s.n}</td>
+                <td>${s.p}</td>
+                <td>${s.bp}</td>
+                <td>${s.bc}</td>
+                <td>${s.diff > 0 ? '+' + s.diff : s.diff}</td>
+            `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // --- GENERIC ---
+        function saveData() {
+            localStorage.setItem('ramadanCupData2026', JSON.stringify(appState));
+        }
+
+        function loadData() {
+            const data = localStorage.getItem('ramadanCupData2026');
+            if (data) {
+                appState = JSON.parse(data);
+
+                // Populate inputs
+                for (let i = 1; i <= 5; i++) {
+                    if (document.getElementById(`date-j${i}`))
+                        document.getElementById(`date-j${i}`).value = appState.config.dates[i - 1];
+                }
+                if (document.getElementById('cat1-input')) document.getElementById('cat1-input').value = appState.config.players.cat1.join('\n');
+                if (document.getElementById('cat2-input')) document.getElementById('cat2-input').value = appState.config.players.cat2.join('\n');
+                if (document.getElementById('cat3-input')) document.getElementById('cat3-input').value = appState.config.players.cat3.join('\n');
+                if (document.getElementById('fixed-team-players')) document.getElementById('fixed-team-players').value = appState.config.fixedTeamPlayers.join('\n');
+            }
+        }
+
+        function resetAll() {
+            if (confirm("Attention ! Cela va effacer toutes les données (configuration, tirage, résultats). Continuer ?")) {
+                localStorage.removeItem('ramadanCupData2026');
+                location.reload();
+            }
+        }
+
+        function exportData() {
+            window.print();
+        }
+
+    </script>
+
+</body>
+
+</html>
